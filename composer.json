@@ -1,0 +1,25 @@
+{
+    "name": "app/kinopoisk",
+    "authors": [
+        {
+            "name": "dimajolkin",
+            "email": "dimajolkin@rambler.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "src/",
+            "app\\tests\\": "tests/"
+        }
+    },
+    "require": {
+        "slim/slim": "^3.0",
+        "phpunit/phpunit": "6.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "zendframework/zend-mvc": "^3.1",
+        "slim/php-view": "^2.2",
+        "masterminds/html5": "^2.3",
+        "wittiws/phpquery": "^0.9.6",
+        "sunra/php-simple-html-dom-parser": "^1.5"
+    }
+}

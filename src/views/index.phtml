@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/app.css" >
+
+</head>
+<body>
+
+<div class="content">
+    <div class="row">
+        <div class="col-xs-6 col-md-4"></div>
+        <div class="col-xs-6 col-md-4">
+
+            <form method="get">
+                <div class="input-group date" data-provide="datepicker">
+                    <input id="datepicker" name="date" type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" id="send">Send</button>
+            </form>
+
+            <?php
+              /** @var $films \app\service\kinopoisk\FilmInterface[] */
+            ?>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Позиция</td>
+                    <td>Рейтинг</td>
+                    <td>Название</td>
+                    <td>Год</td>
+                    <td>Голосов</td>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($films as $film) { ?>
+                <tr>
+                    <td><?= $film->getPosition() ?></td>
+                    <td><?= $film->getRating() ?></td>
+                    <td><?= $film->getName() ?></td>
+                    <td><?= $film->getYear() ?></td>
+                    <td><?= $film->getNumberVoted() ?></td>
+                </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-6 col-md-4"></div>
+    </div>
+</div>
+<script type="application/javascript" src="assets/app.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+</body>
+</html>
