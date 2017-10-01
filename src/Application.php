@@ -43,9 +43,6 @@ class Application
 //            return $logger;
 //        };
 
-
-//        $container['view'] = new PhpRenderer(__DIR__ . '/views');
-
         foreach ($this->actions as $route => $action) {
             $this->app->get($route, new $action($container));
         }
