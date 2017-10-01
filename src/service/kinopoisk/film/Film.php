@@ -1,6 +1,6 @@
 <?php
 
-namespace app\service\kinopoisk\provider\site;
+namespace app\service\kinopoisk\film;
 
 
 use app\service\kinopoisk\FilmInterface;
@@ -28,23 +28,16 @@ class Film implements FilmInterface
      * @param string $name
      * @param int $year
      * @param int $numberVoted
-     * @param DateTime $dateTime
+     * @param DateTime $date
      */
-    public function __construct(
-        int $position,
-        float $rating,
-        string $name,
-        int $year,
-        int $numberVoted,
-        DateTime $dateTime
-    )
+    public function __construct($position = null, $rating = null, $name = null, $year = null, $numberVoted = null, DateTime $date = null)
     {
         $this->position = $position;
         $this->rating = $rating;
         $this->name = $name;
         $this->year = $year;
         $this->numberVoted = $numberVoted;
-        $this->date = $dateTime;
+        $this->date = $date;
     }
 
 
@@ -70,6 +63,7 @@ class Film implements FilmInterface
     public function getName(): string
     {
         return $this->name;
+
     }
 
     /**
@@ -88,10 +82,30 @@ class Film implements FilmInterface
         return $this->numberVoted;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }
 
+    public static function createByArray(array $properties): self
+    {
+        $film = new static();
+        foreach ($properties as $name => $value) {
+            $film->{$name} = $value;
+        }
 
-}
+        return $film;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'position' => $this->getPosition(),
+            'rating' => $this->getRating(),
+            'name' => $this->getName(),
+            'year' => $this->getYear(),
+            'numberVoted' => $this->getNumberVoted(),
+            'date' => (string)$this->getDate()->format('Y-m-d'),
+        ];
+    }
+ }

@@ -1,11 +1,11 @@
 <?php
 
-namespace app\service\kinopoisk\provider\site;
+namespace app\service\kinopoisk\provider;
 
+use app\service\kinopoisk\FilmCollection;
 use app\service\kinopoisk\FilmInterface;
-use app\service\kinopoisk\provider\ProviderInterface;
 
-class SiteProvider implements ProviderInterface
+class ParserKinopoiskProvider implements ProviderInterface
 {
     protected $page =  'http://www.kinopoisk.ru/top';
 
@@ -13,9 +13,9 @@ class SiteProvider implements ProviderInterface
     /**
      * @param int $limit
      * @param \DateTime $time
-     * @return iterable|FilmInterface[]
+     * @return FilmCollection|FilmInterface[]
      */
-    public function fetchTopByDate($limit = 10, \DateTime $time = null)
+    public function fetchTopByDate($limit = 10, \DateTime $time = null): FilmCollection
     {
         $parser = new Parser($this->page, $time);
         $list = [];
@@ -25,18 +25,17 @@ class SiteProvider implements ProviderInterface
             if ($n >= $limit) break;
         }
 
-        return $list;
+        return new FilmCollection($list);
     }
 
     /**
      * @param \DateTime|null $time
-     * @return FilmInterface[]|iterable
+     * @return FilmInterface[]|FilmCollection
      */
-    public function fetchAll(\DateTime $time = null): iterable
+    public function fetchAll(\DateTime $time = null): FilmCollection
     {
         $parser = new Parser($this->page, $time);
 
-        return $parser->getRecord();
+        return new FilmCollection($parser->getRecord());
     }
-
 }

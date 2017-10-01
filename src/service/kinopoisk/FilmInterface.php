@@ -16,4 +16,6 @@ interface FilmInterface
     public function getNumberVoted(): int;
 
     public function getDate(): \DateTime;
+
+    public function toArray(): array;
 }

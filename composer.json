@@ -20,6 +20,8 @@
         "slim/php-view": "^2.2",
         "masterminds/html5": "^2.3",
         "wittiws/phpquery": "^0.9.6",
-        "sunra/php-simple-html-dom-parser": "^1.5"
+        "sunra/php-simple-html-dom-parser": "^1.5",
+        "robmorgan/phinx": "^0.5",
+        "doctrine/dbal": "^2.6"
     }
 }

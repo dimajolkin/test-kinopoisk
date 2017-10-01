@@ -1,13 +1,18 @@
 <?php
 
-namespace app\service\kinopoisk\provider\site;
+namespace app\service\kinopoisk\provider;
 
+use app\service\kinopoisk\film\FilmBuilder;
 use DateTime;
 use Sunra\PhpSimple\HtmlDomParser;
 
 class Parser
 {
     protected $url = '';
+    /**
+     * @var DateTime
+     */
+    private $dateTime;
 
     /**
      * Parser constructor.
@@ -21,6 +26,7 @@ class Parser
         } else {
             $this->url = $url;
         }
+        $this->dateTime = $dateTime;
     }
 
     public function getRecord(): iterable
@@ -74,14 +80,14 @@ class Parser
         [$rating, $count] = $this->parseRatingAndCount($data[2]);
         [$year, $name] = $this->parseYearAndName($data[1]);
 
-        return new Film(
-            $position,
-            $rating,
-            $name,
-            $year,
-            $count,
-            (new DateTime('now'))
-        );
+        return (new FilmBuilder())
+            ->setPosition($position)
+            ->setRating($rating)
+            ->setNumberVoted($count)
+            ->setYear($year)
+            ->setName($name)
+            ->setDate($this->dateTime)
+            ->create();
     }
 
     private function parseRatingAndCount($string): array
