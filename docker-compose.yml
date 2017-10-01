@@ -1,0 +1,25 @@
+version: '2'
+services:
+ nginx:
+    image: bitnami/nginx:latest
+    depends_on:
+      - phpfpm
+    networks:
+      - app-tier
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./vhost.conf:/bitnami/nginx/conf/vhosts/yourapp.conf
+
+ phpfpm:
+    image: bitnami/php-fpm:latest
+    ports:
+          - '9000:9000'
+    networks:
+      - app-tier
+    volumes:
+      - /path/to/app:/app
+networks:
+    app-tier:
+      driver: bridge

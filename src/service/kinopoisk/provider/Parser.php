@@ -33,9 +33,16 @@ class Parser
     {
         $html = file_get_contents($this->url);
 
-        $dom = HtmlDomParser::str_get_html($html);
+        if (!$dom = HtmlDomParser::str_get_html($html)) {
+            return [];
+        }
 
-        foreach ($dom->find('table > table > table > table tr') as $n => $tr) {
+        $table = $dom->find('table > table > table > table tr');
+        if (!$table) {
+            return [];
+        }
+
+        foreach ($table as $n => $tr) {
             if ($n === 0) continue;
 
             $arrayTdValues = [];

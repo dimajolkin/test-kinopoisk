@@ -51,7 +51,11 @@ class CacheProvider implements ProviderInterface
         $key = $this->buildKey($time, $limit);
         if (!$this->storage->has($key)) {
             $films = $this->baseProvider->fetchTopByDate($limit, $time);
-            $this->storage->set($key, json_encode($films->toArray()), $this->ttl);
+
+            $array = $films->toArray();
+            if ($array) {
+                $this->storage->set($key, json_encode($array), $this->ttl);
+            }
 
             return $films;
         }

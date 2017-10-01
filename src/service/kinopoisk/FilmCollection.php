@@ -43,6 +43,10 @@ class FilmCollection implements \IteratorAggregate, \Countable
 
     public function count()
     {
+        if ($this->films instanceof \Generator) {
+            $this->films = iterator_to_array($this->films);
+        }
+
         return count($this->films);
     }
 }

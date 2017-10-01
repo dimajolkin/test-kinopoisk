@@ -16,19 +16,36 @@ return [
             $container->get(CacheProvider::class)
         );
     },
+    /**
+     * Кэширует данные во временное хранилище от любого провайдера
+     */
+    CacheProvider::class => function (Container $container) {
+
+        // будет получать с сайта и кэшировать
+        return new CacheProvider(
+            $container->get(ParserKinopoiskProvider::class),
+            $container->get(StorageInterface::class)
+        );
+
+//        // получение данных из бызы
+//        return new CacheProvider(
+//            $container->get(DbProvider::class),
+//            $container->get(StorageInterface::class)
+//        );
+
+    },
+    /**
+     * Ищет в записанных в базу данных
+     */
     DbProvider::class => function (Container $container) {
 
         return new DbProvider(
             $container->get(Connection::class)
         );
     },
-    CacheProvider::class => function (Container $container) {
-
-        return new CacheProvider(
-            $container->get(DbProvider::class),
-            $container->get(StorageInterface::class)
-        );
-    },
+    /**
+     * Провайдер получает данные с сайта путём парсинга  HTML
+     */
     ParserKinopoiskProvider::class => function () {
 
         return new ParserKinopoiskProvider();
@@ -36,7 +53,7 @@ return [
 
     StorageInterface::class => function () {
         $redis = new Redis();
-        $redis->connect('localhost');
+        $redis->connect(getenv('DB_REDIS_HOST') ?: 'localhost');
 
         return new RedisStorage($redis);
     },
