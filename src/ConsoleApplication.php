@@ -2,7 +2,6 @@
 
 namespace app;
 
-
 use app\actions\ParserAction;
 use Slim\Http\Environment;
 
@@ -19,10 +18,11 @@ class ConsoleApplication extends Application
     public function __construct($argv)
     {
         parent::__construct();
-
         array_shift($argv);
-        $pathInfo = implode('/', $argv);
-        $env = Environment::mock(['PATH_INFO' => $pathInfo]);
+
+        $env = Environment::mock([
+            'QUERY_STRING' => implode('&', $argv),
+            ]);
 
         $container = $this->app->getContainer();
         $container['environment'] = $env;

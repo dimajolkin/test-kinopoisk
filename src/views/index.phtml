@@ -10,13 +10,19 @@
     <script type="application/javascript" src="assets/app.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+    </div>
+</nav>
 
-<div class="content">
+<div class="content-fluid">
     <div class="row">
-        <div class="col-xs-6 col-md-4"></div>
-        <div class="col-xs-6 col-md-4">
-
-            <form method="get">
+        <div class="col-xs-6 col-xs-offset-3">
+            <form method="get" style="margin-bottom: 10px">
                 <div class="input-group date">
                     <input id="date" name="date" type="text" class="form-control">
                     <div class="input-group-addon">
@@ -27,12 +33,14 @@
 
             <?php/** @var $films \app\service\kinopoisk\FilmInterface[] */ ?>
             <?php if (!count($films)) { ?>
-                <p class="bg-success">
-                    Данных за эту дату ещё нет
-                </p>
+                <div class="alert alert-info">
+                   <p>
+                       Данные за выбранный день не найдены
+                   </p>
+                </div>
             <?php } else { ?>
 
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                     <tr>
                         <td>Позиция</td>

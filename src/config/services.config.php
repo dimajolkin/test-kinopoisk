@@ -22,16 +22,16 @@ return [
     CacheProvider::class => function (Container $container) {
 
         // будет получать с сайта и кэшировать
-        return new CacheProvider(
-            $container->get(ParserKinopoiskProvider::class),
-            $container->get(StorageInterface::class)
-        );
-
-//        // получение данных из бызы
 //        return new CacheProvider(
-//            $container->get(DbProvider::class),
+//            $container->get(ParserKinopoiskProvider::class),
 //            $container->get(StorageInterface::class)
 //        );
+
+        // получение данных из бызы
+        return new CacheProvider(
+            $container->get(DbProvider::class),
+            $container->get(StorageInterface::class)
+        );
 
     },
     /**

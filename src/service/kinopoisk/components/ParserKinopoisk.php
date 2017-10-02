@@ -1,36 +1,37 @@
 <?php
 
-namespace app\service\kinopoisk\provider;
+namespace app\service\kinopoisk\components;
 
 use app\service\kinopoisk\film\FilmBuilder;
 use DateTime;
 use Sunra\PhpSimple\HtmlDomParser;
 
-class Parser
+class ParserKinopoisk
 {
     protected $url = '';
+
     /**
      * @var DateTime
      */
     private $dateTime;
 
+    const ENCODING = 'windows-1251';
+
     /**
      * Parser constructor.
      * @param string $url
-     * @param DateTime $dateTime
      */
-    public function __construct(string $url, DateTime $dateTime = null)
+    public function __construct(string $url)
     {
-        if ($dateTime) {
-            $this->url = $url .  '/day/' . $dateTime->format('Y-m-d');
-        } else {
-            $this->url = $url;
-        }
-        $this->dateTime = $dateTime;
+        $this->url = $url;
     }
 
-    public function getRecord(): iterable
+    public function getRecordByDate(DateTime $dateTime = null): iterable
     {
+        if ($dateTime) {
+            $this->url = $this->url .  '/day/' . $dateTime->format('Y-m-d');
+        }
+
         $html = file_get_contents($this->url);
 
         if (!$dom = HtmlDomParser::str_get_html($html)) {
@@ -53,14 +54,14 @@ class Parser
                         break;
                     case 1:
                         $rusName = $td->find('a', 0)->text();
-                        list($year, $name) = $this->parseYearAndName($rusName);
+                        [$year, $name] = $this->parseYearAndName($rusName);
 
                         $originalName = null;
                         if ($span = $td->find('span', 0)) {
                             $originalName = $span->text();
                         } else {
                             //rus film
-                            $originalName = iconv('windows-1251', 'utf-8', $name);
+                            $originalName = iconv(static::ENCODING, 'utf-8', $name);
                         }
 
                         $arrayTdValues[$k] = [$year, $originalName];
