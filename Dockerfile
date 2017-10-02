@@ -3,7 +3,7 @@ FROM php:7.1
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
     libpq-dev git zip &&\
-    docker-php-ext-install pdo pdo_pgsql
+    docker-php-ext-install pdo pdo_pgsql zip
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

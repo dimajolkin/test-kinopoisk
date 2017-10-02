@@ -14,12 +14,9 @@ fi
 
 if [[ $1 = "build" ]]
 then
-docker-compose build && docker-compose run web sh -c 'composer install && npm i && npm run build'
+   docker-compose build && \
+   docker-compose run web --user=${USER} sh -c \
+     'composer install && composer phinx migrate && npm i && npm run build'
 exit 1
 fi
 
-if [[ $1 = "migrate" ]]
-then
-docker-compose stop web
-exit 1
-fi
