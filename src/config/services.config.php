@@ -59,9 +59,11 @@ return [
     },
     Connection::class => function () {
 
-        $patch = realpath( __DIR__ . '/../../development_db');
+//        $patch = realpath( __DIR__ . '/../../development_db');
+//        'sqlite:' . $patch
+//
         return \Doctrine\DBAL\DriverManager::getConnection([
-            'pdo' => new PDO('sqlite:' . $patch),
+            'pdo' => new PDO(getenv('DB_DSN')),
         ]);
     }
 ];

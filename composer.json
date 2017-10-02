@@ -22,6 +22,7 @@
         "wittiws/phpquery": "^0.9.6",
         "sunra/php-simple-html-dom-parser": "^1.5",
         "robmorgan/phinx": "^0.5",
-        "doctrine/dbal": "^2.6"
+        "doctrine/dbal": "^2.6",
+        "monolog/monolog": "^1.23"
     }
 }

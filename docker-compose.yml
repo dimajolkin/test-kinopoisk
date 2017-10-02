@@ -1,13 +1,20 @@
 version: '2'
 services:
   web:
-    image: php:7.1
+    build: .
     volumes:
-      - .:${PWD}
-    command: php -S 0.0.0.0:8000 -t ${PWD}/web
+      - .:/app
+    working_dir: /app
+    command: composer install && npm i && npm run build && php -S 0.0.0.0:8000 -t /app/web
     ports:
      - "8000:8000"
     environment:
-      - DB_DSN=pgsql:dbname=postgres;host=db
+      - DB_DSN=pgsql:dbname=db;host=db
       - DB_REDIS_HOST=redis
-
+    links:
+      - redis
+      - db
+  db:
+     image: postgres:9.6
+  redis:
+     image: redis
