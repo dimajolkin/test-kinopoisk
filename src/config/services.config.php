@@ -58,12 +58,17 @@ return [
         return new RedisStorage($redis);
     },
     Connection::class => function () {
-
-//        $patch = realpath( __DIR__ . '/../../development_db');
-//        'sqlite:' . $patch
 //
+        $driver = getenv('DB_DRIVER');
+        $name = getenv('DB_NAME');
+        $host = getenv('DB_HOST');
+        $user = getenv('DB_USER');
+        $password = getenv('DB_PASSWORD');
+
+        $db = "$driver:dbname=$name;host=$host;user=$user;password=$password";
+
         return \Doctrine\DBAL\DriverManager::getConnection([
-            'pdo' => new PDO(getenv('DB_DSN')),
+            'pdo' => new PDO($db),
         ]);
     }
 ];

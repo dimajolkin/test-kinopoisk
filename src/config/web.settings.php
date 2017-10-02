@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'displayErrorDetails' => true,
+        'displayErrorDetails' => getenv('APP_ENV') === 'dev',
 
         'logger' => [
             'name' => 'slim-app',

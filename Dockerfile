@@ -10,6 +10,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
 apt-get install -yq nodejs build-essential
 
+RUN pecl install redis && docker-php-ext-enable redis
 RUN nodejs -v
 #RUN npm install -g npm@3
 RUN rm -rf /var/lib/apt/lists/*

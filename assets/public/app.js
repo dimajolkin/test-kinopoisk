@@ -1,6 +1,7 @@
 import 'bootstrap';
-
+import 'bootstrap/dist/css/bootstrap.css'
 require('bootstrap-datepicker');
+
 var $ = require('jquery');
 $.fn.datepicker.defaults.format = "yyyy-mm-dd";
 

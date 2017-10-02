@@ -4,12 +4,19 @@ services:
     build: .
     volumes:
       - .:/app
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
     working_dir: /app
-#    command: php -S 0.0.0.0:8000 -t /app/web
+    command: php -S 0.0.0.0:8000 -t /app/web
     ports:
      - "8000:8000"
     environment:
-      - DB_DSN=pgsql:dbname=db;host=db
+      - APP_END=dev
+      - DB_DRIVER=pgsql
+      - DB_PASSWORD=postgres
+      - DB_USER=postgres
+      - DB_NAME=postgres
+      - DB_HOST=db
       - DB_REDIS_HOST=redis
     links:
       - redis
