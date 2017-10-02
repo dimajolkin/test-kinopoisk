@@ -13,7 +13,7 @@ class CreateFilmTable extends AbstractMigration
             ->addColumn('rating', 'float')
             ->addColumn('name', 'string')
             ->addColumn('year', 'integer')
-            ->addColumn('numberVoted', 'integer')
+            ->addColumn('numbervoted', 'integer')
             ->addColumn('date', 'datetime')
             ->save();
     }

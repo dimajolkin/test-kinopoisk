@@ -94,7 +94,7 @@ class ParserKinopoisk
             ->setNumberVoted($count)
             ->setYear($year)
             ->setName($name)
-            ->setDate($this->dateTime)
+            ->setDate($this->dateTime ?: new DateTime('now'))
             ->create();
     }
 

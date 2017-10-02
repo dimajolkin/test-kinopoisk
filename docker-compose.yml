@@ -18,6 +18,9 @@ services:
       - DB_NAME=postgres
       - DB_HOST=db
       - DB_REDIS_HOST=redis
+    depends_on:
+      - redis
+      - db
     links:
       - redis
       - db

@@ -14,6 +14,12 @@ docker-compose stop web
 exit 1
 fi
 
+if [[ $1 = "run" ]]
+then
+docker exec $(docker-compose ps -q web) sh -c "php /app/run-task $2"
+exit 1
+fi
+
 if [[ $1 = "build" ]]
 then
    docker-compose build && \
